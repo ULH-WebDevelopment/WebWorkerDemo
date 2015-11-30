@@ -2,7 +2,7 @@
 
 This WebApp is a simple demonstration of the usage of WebWorkers. The app shows that heavy computation work can be done on WebWorkers without affecting the main process' performances.
 
-## The main app
+## The main App
 
 The first part of the app shows a rotating rainbow-colored disc rendered at optimal frame rate (60 fps) using the  [`requestAnimationFrame()`](https://developer.mozilla.org/fr/docs/Web/API/Window/requestAnimationFrame) function. The code for this animation is located in the `public/anim.js` file.
 
@@ -31,7 +31,7 @@ view = new Uint8Array(arrayBuffer);
 // ...
 
 
-Sending the data with an unique id to the worker so it can start working
+Sending the data with an unique id to the worker so it can start working. The last parameter (`[view.buffer]`) is the reference of the array included in the `data` attribute that will be transferred to the worker.
 
 ```javascript
 var data = {
@@ -42,8 +42,11 @@ worker.postMessage(data, [view.buffer]);
 ```
 
 
+### Receiving Data
 
-When data is received from a WebWorker, the main app immediately renders it on the canvas:
+Data can be received from the worker thanks to a message passing mechanism with event listeners.  
+
+When message is received from a WebWorker, the main app immediately renders it on the canvas. We do not wait for the _animation frame event_ or we could loose the access to the data.
 
 ```javascript
 worker.addEventListener("message", handler, false);
@@ -67,7 +70,22 @@ The aim of the WebWorker, although not really efficient or realistic, is to some
 The worker  mimics the behavior  of a genetic algorithm trying to optimize the colors in the dataset. This data is represented as a 2D array. One line is seen as a solution vector (a chromosome). The set off all lines are the population of chromosomes. Given a fitness function, classical genetic algorithms (GAs) iteratively try to modify the dataset in order to improve the fitness. The GA selects 2 random chromosomes (2lines of the dataset), then create a third one that is a combination of both (the offspring chromozome). If this new chromosome has a better fitness than one of the parents it takes that parent's place in the dataset.
 
 The fitness here is the pairwise difference between any pair of adjacent colors of the vector. The lower the difference, the better the fitness.  
+
+When started the worker waits for messages containing the data to be used for the algorithm.
+
+After the computation, it sends a message back to the main app transferring the data again.
+
+```javascript
+postMessage({
+  'id': id,
+  'data': arr.buffer,
+  'fitness': maxFitness,
+  'round':round++,
+  'index':maxIndex
+}, [arr.buffer]);
+```
+
 ## Analysis
 
 
-Although the algorithm needs a lot of CPU cycles the most extensive task is the exchange of information. This example uses
+Although the algorithm needs a lot of CPU cycles the most extensive task is the exchange of information. Although this example uses transferable objects, data transfer is always a bottleneck
