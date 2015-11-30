@@ -1,0 +1,16 @@
+{
+  "name": "webworker-demo",
+  "version": "1.0.0",
+  "description": "This WebApp is a simple demonstration of the usage of WebWorkers. The app shows that heavy computation work can be done on WebWorkers without affecting the main process' performances.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
