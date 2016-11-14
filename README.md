@@ -88,4 +88,4 @@ postMessage({
 ## Analysis
 
 
-Although the algorithm needs a lot of CPU cycles the most extensive task is the exchange of information. Although this example uses transferable objects, data transfer is always a bottleneck
+Although the algorithm needs a lot of CPU cycles the most extensive task is the exchange of information. Although this example uses transferable objects, data transfer is always a bottleneck.

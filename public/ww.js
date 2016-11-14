@@ -74,7 +74,7 @@ this.addEventListener('message', function(e) {
     }
     //return off;
   }
-  for (var time = 0; time < 100; time++) {
+  for (var time = 0; time < 10; time++) {
 
     var j = Math.floor(Math.random() * (height));
     var i;
