@@ -4,7 +4,7 @@
   "description": "This WebApp is a simple demonstration of the usage of WebWorkers. The app shows that heavy computation work can be done on WebWorkers without affecting the main process' performances.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.16.3"
   },
   "devDependencies": {},
   "scripts": {
